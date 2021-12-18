@@ -51,10 +51,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'v_isualization.urls'
 
+import os
+
+TEMPLATE_BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(TEMPLATE_BASE_DIR, '')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
