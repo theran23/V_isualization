@@ -1,0 +1,135 @@
+body{
+        background-color: #efe5d0;
+        margin: 0px;
+}
+header{
+    background-color: #353848;
+    text-align: center;
+
+    padding: 130px 20px 10px 20px;
+    margin: 0px;
+
+    font-family: 'Arial Black',sans-serif;
+    text-shadow: 0px -8px rgba(0, 0, 0, 0.44);
+    color: #fffcf0;
+    font-weight: 900;
+    font-size: 56px;
+}
+nav {
+    background-color: #fffcf0;
+}
+section {
+    background-color: #dedcee;
+    padding: 15px;
+
+}
+
+footer {
+    background-color: #fffcf0;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    margin: 0px 0px 0px 0px;
+    font-size: 90%;
+}
+.menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    flex-wrap: wrap;
+}
+.btn{
+    text-decoration: none;
+    font-size:20px;
+    color:white;
+    padding:10px 20px 10px 20px;
+    margin:10px;
+    width: 100px;
+    text-align: center;
+
+    border-radius: 10px;
+    transition:all 0.1s;
+
+}
+a{
+    color: black;
+    text-decoration:none;
+}
+a:hover {
+    color: white;
+}
+.btn.current{
+    background-color: #FBFFB9;
+    border-bottom:5px solid #f9c00c;
+}
+.btn.notcurrent{
+    background-color: #C5E99B;
+    border-bottom:5px solid #5A9367;
+}
+.content{
+    background-color:white;
+    display:flex;
+    flex-direction: column;
+    flex-wrap:wrap;
+    justify-content:space-around;
+}
+.left{
+    padding: 10px;
+}
+.right{
+    padding: 10px;
+    display:flex;
+    flex-direction: column;
+    flex-wrap:wrap;/*???*/
+    align-items: space-between;
+    justify-content: center;
+}
+
+.forms{
+    border: 5px #6a60a9 solid;
+    background-color:#6a60a9;
+}
+
+tr,td,table{
+    border:5px #6a60a9  solid; height:50px; text-align: center;
+    background-color:#d3e0f7;
+}
+.upperbox{
+    /*background-color: black;*/
+    background-color:#dedcee;
+
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+.lowerbox{
+    /*background-color: coral;*/
+    background-color:#dedcee;
+    padding:20px;
+    text-align: center;
+}
+.square {
+    background-color:#d3e0f7;
+    font-style: italic;
+    border: 5px #6a60a9 solid;
+    width: 400px;
+    height: 100px;
+    padding-top: 30px;
+    text-align: center;
+    display: inline-block;
+}
+.square.fade-in {
+  animation-name: fade;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-delay: 0s;
+  animation-iteration-count: 3s;
+  animation-direction: normal;
+  animation-fill-mode: none;
+}
+@keyframes fade {
+ 0% { opacity: 0; }
+ 100% { opacity: 1; }
+}
