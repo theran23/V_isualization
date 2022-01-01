@@ -1,10 +1,9 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
+class SortingPageView(TemplateView):
 
-class HomeView(TemplateView):
-
-    template_name = 'home/templates/home.html'
+    template_name = 'sorting/templates/sorting.html'
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(request, *args, **kwargs)
@@ -18,6 +17,3 @@ class HomeView(TemplateView):
     def get_context_data(self, request, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-
-
