@@ -16,5 +16,5 @@ class SortingPageView(TemplateView):
 
     def get_context_data(self, request, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['array'] = [1,2,5,4,3,11,7,19,20]
+        context['array'] = [10,22,50,41,36,11,17,19,20,100,99,12,14,15,19,29,35]
         return context

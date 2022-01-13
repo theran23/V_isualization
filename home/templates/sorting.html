@@ -2,41 +2,210 @@
 {#{% load define_input %}#}
 {#{% load define_sorting %}#}
 {% block body %}
-
+{{ array }}
     <section>
         <div class="d-flex justify-content-center" style="width:100%;height:1000px;" >
             <div class="d-flex  flex-column" style=";width:80%;height:900px;background:#fffcf0;padding:20px 10px;">
                 <div class="border" style="width:100%;height:30px;">기본 정렬 알고리즘</div>
                 <div class="border d-flex flex-column " style="width:100%;height:30%;">
-                    <div class="border" style="width:100%;height:10%;">
-                        selection sort
+                    <div class="border d-flex justify-content-between" style="width:100%;height:10%;">
+                        <div>selection sort</div><div><button onclick="start_s();">start</button></div>
                     </div>
                     <div class="border" style="width:100%;height:90%;">
-                        <div class="border d-flex justify-content-cente" style="width:100%;height:100%;">
+                        <div class="container border d-flex justify-content-center align-items-end" style="width:100%;height:100%;">
                             {% for i in array %}
-                                <div class="border" style="flex-grow:1;height:{{ i }}vh;background:blue;"> {{ i }}</div>
+                                <div class="border box selection" style="flex-grow:1;height:calc({{ i }}/100*100%);background:lightskyblue;" value="{{ i }}"> {{ i }}</div>
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="border" style="width:100%;height:10%;">
-                        비교 횟수: -
+                    <div class="border d-flex" style="width:100%;height:10%;">
+                        <div style="width:50%">비교 횟수: -</div><div style="width:50%">SWAP 횟수: -</div>
                     </div>
                 </div>
                 <div class="border d-flex flex-column " style="width:100%;height:30%;">
-                    <div class="border" style="width:100%;height:10%;">
-                        bubble sort
+                    <div class="border d-flex justify-content-between" style="width:100%;height:10%;">
+                        <div>bubble sort</div><div><button onclick="bubblesort();">start</button></div>
                     </div>
-                    <div class="border" style="width:100%;height:90%;">c</div>
+                    <div class="border" style="width:100%;height:90%;">
+                        <div class="container border d-flex justify-content-center align-items-end" style="width:100%;height:100%;">
+                            {% for i in array %}
+                                <div class="border box bubble" style="flex-grow:1;height:calc({{ i }}/100*100%);background:lightskyblue;" value="{{ i }}"> {{ i }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="border d-flex" style="width:100%;height:10%;">
+                        <div style="width:50%">비교 횟수: -</div><div style="width:50%">SWAP 횟수: -</div>
+                    </div>
                 </div>
                 <div class="border d-flex flex-column " style="width:100%;height:30%;">
-                    <div class="border" style="width:100%;height:10%;">
-                        insertion sort
+                    <div class="border d-flex justify-content-between" style="width:100%;height:10%;">
+                        <div>insertion sort</div><div><button onclick="insertionsort();">start</button></div>
                     </div>
-                    <div class="border" style="width:100%;height:90%;">c</div>
+                    <div class="border" style="width:100%;height:90%;">
+                        <div class="container border d-flex justify-content-center align-items-end" style="width:100%;height:100%;">
+                            {% for i in array %}
+                                <div class="border box insertion" style="flex-grow:1;height:calc({{ i }}/100*100%);background:lightskyblue;" value="{{ i }}"> {{ i }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="border d-flex" style="width:100%;height:10%;">
+                        <div style="width:50%">비교 횟수: -</div><div style="width:50%">SWAP 횟수: -</div>
+                    </div>
                 </div>
             </div>
         </div>
 
 
     </section>
+{% endblock %}
+
+{% block script %}
+    <script>
+    function swap(obj1, obj2){
+
+    }
+
+    async function start_s(delay = 300) {
+        let bars = document.querySelectorAll(".selection");
+        // Assign 0 to min_idx
+        var min_idx = 0;
+        for (var i = 0; i < bars.length; i += 1) {
+
+            // Assign i to min_idx
+            min_idx = i;
+
+            // Provide darkblue color to the ith bar
+            bars[i].style.backgroundColor = "darkblue";
+            for (var j = i + 1; j < bars.length; j += 1) {
+
+                // Provide red color to the jth bar
+                bars[j].style.backgroundColor = "red";
+
+                // To pause the execution of code for 300 milliseconds
+                await new Promise((resolve) =>
+                    setTimeout(() => {
+                        resolve();
+                    }, 300)
+                );
+
+                // To store the integer value of jth bar to var1
+                var val1 = parseInt(bars[j].innerHTML);
+
+                // To store the integer value of (min_idx)th bar to var2
+                var val2 = parseInt(bars[min_idx].innerHTML);
+                console.log(val1)
+                console.log(val2)
+
+                // Compare val1 & val2
+                if (val1 < val2) {
+                    if (min_idx !== i) {
+
+                        // Provide skyblue color to the (min-idx)th bar
+                        bars[min_idx].style.backgroundColor = " rgb(24, 190, 255)";
+                    }
+                    min_idx = j;
+                } else {
+
+                    // Provide skyblue color to the jth bar
+                    bars[j].style.backgroundColor = " rgb(24, 190, 255)";
+                }
+            }
+
+            // To swap ith and (min_idx)th bar
+            var temp1 = bars[min_idx].style.height;
+            var temp2 = bars[min_idx].innerText;
+            bars[min_idx].style.height = bars[i].style.height;
+            bars[i].style.height = temp1;
+
+            bars[min_idx].innerText = bars[i].innerText;
+            bars[i].innerText = temp2;
+
+            // To pause the execution of code for 300 milliseconds
+            await new Promise((resolve) =>
+                setTimeout(() => {
+                    resolve();
+                }, 300)
+            );
+
+            // Provide skyblue color to the (min-idx)th bar
+            bars[min_idx].style.backgroundColor = " rgb(24, 190, 255)";
+
+            // Provide lightgreen color to the ith bar
+            bars[i].style.backgroundColor = " rgb(49, 226, 13)";
+        }
+
+    }
+
+        async function bubblesort(delay = 300) {
+        let bars = document.querySelectorAll(".bubble");
+        // Assign 0 to min_idx
+        var min_idx = 0;
+        for (var i = 0; i < bars.length; i += 1) {
+
+            // Assign i to min_idx
+            min_idx = i;
+
+            // Provide darkblue color to the ith bar
+            bars[i].style.backgroundColor = "darkblue";
+            for (var j = i + 1; j < bars.length; j += 1) {
+
+                // Provide red color to the jth bar
+                bars[j].style.backgroundColor = "red";
+
+                // To pause the execution of code for 300 milliseconds
+                await new Promise((resolve) =>
+                    setTimeout(() => {
+                        resolve();
+                    }, 300)
+                );
+
+                // To store the integer value of jth bar to var1
+                var val1 = parseInt(bars[j].innerHTML);
+
+                // To store the integer value of (min_idx)th bar to var2
+                var val2 = parseInt(bars[min_idx].innerHTML);
+                console.log(val1)
+                console.log(val2)
+
+                // Compare val1 & val2
+                if (val1 < val2) {
+                    if (min_idx !== i) {
+
+                        // Provide skyblue color to the (min-idx)th bar
+                        bars[min_idx].style.backgroundColor = " rgb(24, 190, 255)";
+                    }
+                    min_idx = j;
+                } else {
+
+                    // Provide skyblue color to the jth bar
+                    bars[j].style.backgroundColor = " rgb(24, 190, 255)";
+                }
+            }
+
+            // To swap ith and (min_idx)th bar
+            var temp1 = bars[min_idx].style.height;
+            var temp2 = bars[min_idx].innerText;
+            bars[min_idx].style.height = bars[i].style.height;
+            bars[i].style.height = temp1;
+
+            bars[min_idx].innerText = bars[i].innerText;
+            bars[i].innerText = temp2;
+
+            // To pause the execution of code for 300 milliseconds
+            await new Promise((resolve) =>
+                setTimeout(() => {
+                    resolve();
+                }, 300)
+            );
+
+            // Provide skyblue color to the (min-idx)th bar
+            bars[min_idx].style.backgroundColor = " rgb(24, 190, 255)";
+
+            // Provide lightgreen color to the ith bar
+            bars[i].style.backgroundColor = " rgb(49, 226, 13)";
+        }
+
+    }
+
+    </script>
 {% endblock %}
