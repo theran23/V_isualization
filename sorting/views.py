@@ -1,9 +1,10 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
+import random
 
 class SortingPageView(TemplateView):
 
-    template_name = 'sorting/templates/sorting.html'
+    template_name = 'home/templates/sorting.html'
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(request, *args, **kwargs)
@@ -16,4 +17,12 @@ class SortingPageView(TemplateView):
 
     def get_context_data(self, request, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        a = []
+        n = int(input('array의 크기 : '))
+        for i in range(n):
+            num = random.randint(1, 99)
+            a.append(num)
+        print(a)
+
         return context
