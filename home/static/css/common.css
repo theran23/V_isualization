@@ -133,3 +133,21 @@ tr,td,table{
  0% { opacity: 0; }
  100% { opacity: 1; }
 }
+
+.color_ani{
+    animation-name:red;
+    animation-duration:0.1s;
+}
+
+@keyframes red{
+    /*from{background:blue;}*/
+    to{background:red;}
+}
+
+/*.child {*/
+/*  transition: transform linear 0.01s;*/
+/*}*/
+/*.child.transition {*/
+/*  transition: transform linear 0.01s;*/
+/*}*/
+
