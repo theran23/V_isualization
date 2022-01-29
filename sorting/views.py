@@ -17,13 +17,14 @@ class SortingPageView(TemplateView):
 
     def get_context_data(self, request, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['array'] = [10,22,50,41,36,11,17,19,20,100,99,12,14,15,19,29,35]
 
-        # a = []
-        # n = int(input('array의 크기 : '))
-        # for i in range(n):
-        #     num = random.randint(1, 99)
-        #     a.append(num)
-        # print(a)
+        a = []
+        n = random.randint(1,20)
+        for i in range(n):
+            num = random.randint(1, 99)
+            a.append(num)
+        print(a)
+
+        context['array'] = a
 
         return context

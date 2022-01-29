@@ -9,7 +9,7 @@
                 <div class="border" style="width:100%;height:30px;">기본 정렬 알고리즘</div>
                 <div class="border d-flex flex-column " style="width:100%;height:30%;">
                     <div class="border d-flex justify-content-between" style="width:100%;height:10%;">
-                        <div>selection sort</div><div><button onclick="start_s();">start</button></div>
+                        <div>selection sort</div><div><button onclick="s_sort();" >start</button></div>
                     </div>
                     <div class="border" style="width:100%;height:90%;">
                         <div class="container border d-flex justify-content-center align-items-end" style="width:100%;height:100%;">
@@ -19,12 +19,12 @@
                         </div>
                     </div>
                     <div class="border d-flex" style="width:100%;height:10%;">
-                        <div style="width:50%">비교 횟수: -</div><div style="width:50%">SWAP 횟수: -</div>
+                        <div style="width:50%">비교 횟수: <span id="s_compare">0</span></div><div style="width:50%">SWAP 횟수: <span id="s_swap">0</span></div>
                     </div>
                 </div>
                 <div class="border d-flex flex-column " style="width:100%;height:30%;">
                     <div class="border d-flex justify-content-between" style="width:100%;height:10%;">
-                        <div>bubble sort</div><div><button onclick="bubblesort();">start</button></div>
+                        <div>bubble sort</div><div><button onclick="b_sort();">start</button></div>
                     </div>
                     <div class="border" style="width:100%;height:90%;">
                         <div class="container border d-flex justify-content-center align-items-end" style="width:100%;height:100%;">
@@ -34,12 +34,12 @@
                         </div>
                     </div>
                     <div class="border d-flex" style="width:100%;height:10%;">
-                        <div style="width:50%">비교 횟수: -</div><div style="width:50%">SWAP 횟수: -</div>
+                        <div style="width:50%">비교 횟수: <span id="b_compare">0</span></div><div style="width:50%">SWAP 횟수: <span id="b_swap">0</span></div>
                     </div>
                 </div>
                 <div class="border d-flex flex-column " style="width:100%;height:30%;">
                     <div class="border d-flex justify-content-between" style="width:100%;height:10%;">
-                        <div>insertion sort</div><div><button onclick="insertionsort();">start</button></div>
+                        <div>insertion sort</div><div><button onclick="i_sort();">start</button></div>
                     </div>
                     <div class="border" style="width:100%;height:90%;">
                         <div class="container border d-flex justify-content-center align-items-end" style="width:100%;height:100%;">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="border d-flex" style="width:100%;height:10%;">
-                        <div style="width:50%">비교 횟수: -</div><div style="width:50%">SWAP 횟수: -</div>
+                        <div style="width:50%">비교 횟수: <span id="i_compare">0</span></div><div style="width:50%">SWAP 횟수: <span id="i_swap">0</span></div>
                     </div>
                 </div>
             </div>
@@ -60,19 +60,198 @@
 {% endblock %}
 
 {% block script %}
-    <script>
-    function swap(obj1, obj2){
-        var tmp_height = obj2.style.height;
-        var tmp_val = obj2.innerText;
+<script>
+    let a = [8,31,43,29,11,15]
 
-        obj2.style.height = obj1.style.height;
-        obj1.style.height = tmp_height;
-
-        obj2.innerText = obj1.innerText;
-        obj1.innerText = tmp_val;
+    function bubble(a){
+        let n = a.length;
+        for(let last = n-1; last<=1; last--){
+            for(let i = 1; i<last-1; i++){
+                if(a[i]>a[i+1]){
+                    let tmp = a[i];
+                    a[i] = a[i+1];
+                    a[i+1] = tmp;
+                }
+            }
+        }
+        return a;
     }
 
-    
+    function swap(obj1, obj2){
+        let tmp_height = obj2.style.height;
+        let tmp_value = obj2.innerText;
 
-    </script>
+        obj2.style.height = obj1.style.height;
+        obj2.innerText = obj1.innerText;
+
+        obj1.innerText = tmp_value;
+        obj1.style.height = tmp_height;
+
+    }
+
+    function copy(obj1, obj2){
+        obj1.style.height = obj2.style.height;
+        obj1.innerText = obj2.innerText;
+    }
+
+    function background_change(obj, color){
+        obj.style.background=color;
+    }
+
+    async function s_sort(){
+        let s_compare = document.getElementById('s_compare');
+        console.log('s_compare:');
+        console.log(parseInt(s_compare.innerText));
+        let s_swap = document.getElementById('s_swap');
+        console.log('s_swap:');
+        console.log(parseInt(s_swap.innerText));
+        let bars = document.querySelectorAll('.selection');
+        let n = bars.length;
+        for (let first=0;first<n; first++){
+            /* a[first]를 남색으로 바꿈. */
+            background_change(bars[first],'darkblue');
+            {#bars[first].style.background = 'darkblue';#}
+
+            // a[first....n] 중에 가장 작은 값 찾기
+            let min_id = first;
+            for(let i=first+1;i<n;i++){
+                /* a[i]를 빨간색으로 바꿈 */
+                {#bars[i].style.background = 'red';#}
+                background_change(bars[i],'red');
+                await new Promise((resolve)=>{
+                    setTimeout(()=>{
+                        resolve();
+                    }, 300);
+                })
+                var s_compare_cnt = parseInt(s_compare.innerText);
+                s_compare.innerText = s_compare_cnt+1;
+                if(parseInt(bars[min_id].innerText) > parseInt(bars[i].innerText)){
+                    if(min_id!==first){
+                    background_change(bars[min_id],'skyblue');
+                     {#bars[min_id].style.background = 'skyblue';#}
+                    }
+                    min_id = i;
+                    /* a[i]를 빨강으로 유지. 돌아가지 않음*/
+                }
+                else{
+                    /*a[i]를 원색으로 바꾸어줌*/
+                    background_change(bars[i],'skyblue');
+                    {#bars[i].style.background = 'skyblue';#}
+                }
+            }
+            /* a[min_id]와 a[first]의 크기가 바뀜
+            * a[min_id]는 원래 색, a[first]는 연두색으로 고정.  */
+            //a[min_id]와 a[first]와 swap
+            var s_swap_cnt = parseInt(s_swap.innerText);
+            s_swap.innerText = s_swap_cnt+1;
+            swap(bars[min_id],bars[first]);
+            background_change(bars[min_id],'skyblue');
+            background_change(bars[first],'lightgreen');
+            {#bars[min_id].style.background = 'skyblue';#}
+            {#bars[first].style.background = 'lightgreen';#}
+
+        }
+        // console.log(a);
+        return a;
+    }
+
+    async function b_sort(){
+        let b_compare = document.getElementById('b_compare');
+        console.log('b_compare:');
+        console.log(parseInt(b_compare.innerText));
+        let b_swap = document.getElementById('b_swap');
+        console.log('b_swap:');
+        console.log(parseInt(b_swap.innerText));
+        let bars = document.querySelectorAll('.bubble');
+        let n = bars.length;
+        console.log(n);
+
+        for (let first=0;first<n-1;first++){
+            // a[first....n] 중에 가장 작은 값 찾기
+            //let min_id = first;
+            for(let i=1;i<n-first;i++){
+                background_change(bars[i-1], 'red');
+                var b_compare_cnt = parseInt(b_compare.innerText);
+                b_compare.innerText = b_compare_cnt+1;
+                background_change(bars[i], 'red');
+                await new Promise((resolve)=>{
+                    setTimeout(()=>{
+                        resolve();
+                    }, 300);
+                })
+                if(parseInt(bars[i-1].innerText) > parseInt(bars[i].innerText)){
+                    background_change(bars[i-1], 'darkblue');
+                    background_change(bars[i], 'darkblue');
+                    await new Promise((resolve)=>{
+                        setTimeout(()=>{
+                            resolve();
+                         }, 200);
+                    })
+                    var b_swap_cnt = parseInt(b_swap.innerText);
+                    b_swap.innerText = b_swap_cnt+1;
+                    //a[i-1]과 a[i] swap
+                    swap(bars[i-1],bars[i]);
+                }
+                background_change(bars[i],'lightgreen');
+                background_change(bars[i-1],'skyblue');
+            }
+            background_change(bars[0],'lightgreen');
+        }
+
+    }
+
+     async function i_sort(){
+            let i_compare = document.getElementById('i_compare');
+            console.log('i_compare:');
+            console.log(parseInt(i_compare.innerText));
+            let i_swap = document.getElementById('i_swap');
+            console.log('i_swap:');
+            console.log(parseInt(i_swap.innerText));
+            let bars = document.querySelectorAll('.insertion');
+            let n = bars.length;
+
+
+
+            for(let index=1; index<n; index++) {
+                let loc = index - 1;
+                background_change(bars[loc],'red');
+                await new Promise((resolve)=>{
+                    setTimeout(()=>{
+                        resolve();
+                    }, 300);
+                })
+                let new_item = bars[index];
+                while (loc >= 0 && parseInt(new_item.innerText) < parseInt(bars[loc].innerText)) {
+
+                    background_change(bars[loc],'red');
+                    await new Promise((resolve)=> {
+                        setTimeout(() => {
+                            resolve();
+                        }, 300);
+                    })
+                    background_change(bars[loc],'lightgreen');
+                    bars[loc+1] = bars[loc];
+                    copy(bars[loc+1],bars[loc]);
+                    await new Promise((resolve)=> {
+                        setTimeout(() => {
+                            resolve();
+                        }, 300);
+                    })
+                    let i_compare_cnt = parseInt(i_compare.innerText);
+                    i_compare.innerText = i_compare_cnt+1;
+                    loc--;
+                }
+                bars[loc+1] = new_item;
+                copy(bars[loc+1],new_item);
+
+                {#var i_swap_cnt = parseInt(i_swap.innerText);#}
+                {#i_swap.innerText = i_swap_cnt+1;#}
+
+            }
+
+
+        }
+
+
+</script>
 {% endblock %}
