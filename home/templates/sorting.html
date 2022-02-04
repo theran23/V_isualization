@@ -39,7 +39,7 @@
                 </div>
                 <div class="border d-flex flex-column " style="width:100%;height:30%;">
                     <div class="border d-flex justify-content-between" style="width:100%;height:10%;">
-                        <div>insertion sort</div><div><button onclick="i_sort();">start</button></div>
+                        <div>insertion sort <span class="selected_box"></span></div><div><button onclick="i_sort();">start</button></div>
                     </div>
                     <div class="border" style="width:100%;height:90%;">
                         <div class="container border d-flex justify-content-center align-items-end" style="width:100%;height:100%;">
@@ -97,6 +97,67 @@
     function background_change(obj, color){
         obj.style.background=color;
     }
+
+    async function i_sort(){
+
+            let i_compare = document.getElementById('i_compare');
+            {#console.log('i_compare:');#}
+            console.log(parseInt(i_compare.innerText));
+            let i_swap = document.getElementById('i_swap');
+            {#console.log('i_swap:');#}
+            console.log(parseInt(i_swap.innerText));
+
+            let bars = document.querySelectorAll('.insertion');
+            let n = bars.length;
+
+
+
+            for(let index=1; index<n; index++) {
+                let loc = index - 1;
+                background_change(bars[loc],'red');
+
+                var key = parseInt(bars[loc].innerText);
+                console.log('select: '+ key);
+
+                await new Promise((resolve) =>
+                    setTimeout(() => {
+                      resolve();
+                    }, 600)
+                  );
+
+
+                let new_item = bars[index];
+                while (loc >= 0 && parseInt(new_item.innerText) < key ) {
+
+                    background_change(bars[loc],'red');
+                    await new Promise((resolve)=> {
+                        setTimeout(() => {
+                            resolve();
+                        }, 300);
+                    })
+                    background_change(bars[loc],'lightgreen');
+                    bars[loc+1] = bars[loc];
+                    copy(bars[loc+1],bars[loc]);
+                    await new Promise((resolve)=> {
+                        setTimeout(() => {
+                            resolve();
+                        }, 300);
+                    })
+                    let i_compare_cnt = parseInt(i_compare.innerText);
+                    i_compare.innerText = i_compare_cnt+1;
+                    loc--;
+                }
+                bars[loc+1] = new_item;
+                copy(bars[loc+1],new_item);
+
+                {#var i_swap_cnt = parseInt(i_swap.innerText);#}
+                {#i_swap.innerText = i_swap_cnt+1;#}
+
+            }
+
+
+        }
+
 
     async function s_sort(){
         let s_compare = document.getElementById('s_compare');
@@ -200,57 +261,6 @@
 
     }
 
-     async function i_sort(){
-            let i_compare = document.getElementById('i_compare');
-            console.log('i_compare:');
-            console.log(parseInt(i_compare.innerText));
-            let i_swap = document.getElementById('i_swap');
-            console.log('i_swap:');
-            console.log(parseInt(i_swap.innerText));
-            let bars = document.querySelectorAll('.insertion');
-            let n = bars.length;
-
-
-
-            for(let index=1; index<n; index++) {
-                let loc = index - 1;
-                background_change(bars[loc],'red');
-                await new Promise((resolve)=>{
-                    setTimeout(()=>{
-                        resolve();
-                    }, 300);
-                })
-                let new_item = bars[index];
-                while (loc >= 0 && parseInt(new_item.innerText) < parseInt(bars[loc].innerText)) {
-
-                    background_change(bars[loc],'red');
-                    await new Promise((resolve)=> {
-                        setTimeout(() => {
-                            resolve();
-                        }, 300);
-                    })
-                    background_change(bars[loc],'lightgreen');
-                    bars[loc+1] = bars[loc];
-                    copy(bars[loc+1],bars[loc]);
-                    await new Promise((resolve)=> {
-                        setTimeout(() => {
-                            resolve();
-                        }, 300);
-                    })
-                    let i_compare_cnt = parseInt(i_compare.innerText);
-                    i_compare.innerText = i_compare_cnt+1;
-                    loc--;
-                }
-                bars[loc+1] = new_item;
-                copy(bars[loc+1],new_item);
-
-                {#var i_swap_cnt = parseInt(i_swap.innerText);#}
-                {#i_swap.innerText = i_swap_cnt+1;#}
-
-            }
-
-
-        }
 
 
 </script>
