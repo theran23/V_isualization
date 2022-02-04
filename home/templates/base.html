@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load example %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,15 +28,16 @@
 
 <nav>
     <div class="menu">
-        <div class="notcurrent btn" style="font-size:19px;font-family: 'Merriweather Sans', sans-serif;"><a href="{% url 'sorting:main' %}">SORTING</a></div>
-        <div class="current btn" style="font-family: 'Merriweather Sans', sans-serif;"><a href="{% url 'home:home' %}">HOME</a></div>
-        <div class="notcurrent btn" style="font-family: 'Merriweather Sans', sans-serif;"><a href="chicago.html">TRAVERSAL</a></div>
+        <button class="{% is_current 'sorting' request.path_info %} btn" style="font-size:19px;font-family: 'Merriweather Sans', sans-serif;" onclick="location.href='{% url 'home:sorting' %}'">SORTING</button>
+        <div class="{% is_current 'home' request.path_info %} btn" style="font-family: 'Merriweather Sans', sans-serif;" onclick="location.href='{% url 'home:home' %}'">HOME</div>
+        <div class="{% is_current 'search' request.path_info %} btn" style="font-family: 'Merriweather Sans', sans-serif;" onclick="location.href='{% url 'home:search' %}'">SEARCH</div>
     </div>
 </nav>
 
 {% block body %}
 {% endblock %}
-<footer>저작자: 김세란 | 이메일: gyerangyeran23@gmail.com </footer>
+
+<footer style="background: #bb6354;">저작자: 김세란, 오수정</footer>
 
 </body>
 
