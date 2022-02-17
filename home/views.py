@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
+from home.models import *
 
 class HomeView(TemplateView):
 
@@ -17,6 +18,15 @@ class HomeView(TemplateView):
 
     def get_context_data(self, request, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+        schedule = Schedule.objects.all()
+        mentor = Participant.objects.filter(name='김세란').get()
+        mentee = Participant.objects.filter(name='오수정').get()
+        context['mentor'] = mentor
+        context['mentee'] = mentee
+        # context = {
+        #     'mentor': mentor,
+        #     'mentee': mentee,
+        # }
         return context
 
 import random
